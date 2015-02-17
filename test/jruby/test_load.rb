@@ -198,7 +198,15 @@ DEPS
 
     res = File.expand_path($loading_behavior_result)
 
-    assert_equal File.expand_path(File.join('test', 'jruby', 'test_loading_behavior.rb')), res
+    assert_equal File.join(prefix, 'test_loading_behavior.rb'), res
+  end
+
+  def prefix
+    if JRuby.runtime.instance_config.legacy_load_service_enabled? || IS_JAR_EXECUTION
+      File.expand_path('test/jruby')
+    else
+      'uri:classloader:/test/jruby'
+    end
   end
 
   # JRUBY-3894

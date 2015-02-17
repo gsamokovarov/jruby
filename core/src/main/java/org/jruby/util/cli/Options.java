@@ -179,6 +179,7 @@ public class Options {
     public static final Option<Integer> FIBER_THREADPOOL_TTL = integer(THREADPOOL, "fiber.thread.pool.ttl", 60, "The maximum number of seconds to keep alive a pooled fiber thread.");
 
     public static final Option<Boolean> CLASSLOADER_DELEGATE = bool(MISCELLANEOUS, "classloader.delegate", true, "In some cases of classloader conflicts it might help not to delegate first to the parent classloader but to load first from the jruby-classloader.");
+    public static final Option<Boolean> LEGACY_LOADSERVICE_ENABLED = bool(MISCELLANEOUS, "legacy.loadService.enabled", false, "Enable or disable legacy load-service. Disabling needs .jrubydir files for directory globs work in required jar-files.");
     public static final Option<Boolean> OBJECTSPACE_ENABLED = bool(MISCELLANEOUS, "objectspace.enabled", false, "Enable or disable ObjectSpace.each_object.");
     public static final Option<Boolean> SIPHASH_ENABLED = bool(MISCELLANEOUS, "siphash.enabled", false, "Enable or disable SipHash for String hash function.");
     public static final Option<Boolean> LAUNCH_INPROC = bool(MISCELLANEOUS, "launch.inproc", false, "Set in-process launching of e.g. system('ruby ...').");

@@ -1,6 +1,7 @@
 # coding: utf-8
 require 'test/unit'
 require 'test/jruby/test_helper'
+require 'jruby/core_ext'
 require 'rbconfig'
 
 class TestDir < Test::Unit::TestCase
@@ -145,7 +146,8 @@ class TestDir < Test::Unit::TestCase
   end
 
   def test_glob_inside_jar_file
-    jar_file = jar_file_with_spaces.sub(/.*!/, 'uri:classloader:')
+    jar_file = jar_file_with_spaces
+    jar_file.sub!(/.*!/, 'uri:classloader:') unless JRuby.runtime.instance_config.legacy_load_service_enabled?
 
     ["#{jar_file}/abc", "#{jar_file}/inside_jar.rb", "#{jar_file}/second_jar.rb"].each do |f|
       assert $__glob_value.include?(f), "#{f} not found in #{$__glob_value.inspect}"

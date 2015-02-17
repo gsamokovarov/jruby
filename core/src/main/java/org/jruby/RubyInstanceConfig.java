@@ -1232,6 +1232,28 @@ public class RubyInstanceConfig {
     }
 
     /**
+     * Set whether legacy load-service is enabled for this config.
+     *
+     * @see Options#LEGACY_LOADSERVICE_ENABLED
+     *
+     * @param b new value indicating whether native code is enabled
+     */
+    public void setLegacyLoadServiceEnabled(boolean b) {
+        _legacyLoadServiceEnabled = b;
+    }
+
+    /**
+     * Get whether legacy load-service is enabled for this config.
+     *
+     * @see Options#LEGACY_LOADSERVICE_ENABLED
+     *
+     * @return true if native code is enabled; false otherwise.
+     */
+    public boolean isLegacyLoadServiceEnabled() {
+        return _legacyLoadServiceEnabled;
+    }
+
+    /**
      * Set whether to use the self-first jruby classloader.
      *
      * @see Options#CLASSLOADER_DELEGATE
@@ -1512,6 +1534,7 @@ public class RubyInstanceConfig {
      * Whether native code is enabled for this configuration.
      */
     private boolean _nativeEnabled = NATIVE_ENABLED;
+    private boolean _legacyLoadServiceEnabled = Options.LEGACY_LOADSERVICE_ENABLED.load();
     private boolean _classloaderDelegate = Options.CLASSLOADER_DELEGATE.load();
 
     private TraceType traceType =

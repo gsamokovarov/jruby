@@ -140,13 +140,15 @@ class LibrarySearcher {
 
         // load the jruby kernel and all resource added to $CLASSPATH
         baseName = baseName.replace("classpath:", "");
-        FoundLibrary library = findFileResourceWithLoadPath(baseName, suffix, URLResource.URI_CLASSLOADER);
-        if (library != null) return library;
+        if (!runtime.getInstanceConfig().isLegacyLoadServiceEnabled()) {
+            FoundLibrary library = findFileResourceWithLoadPath(baseName, suffix, URLResource.URI_CLASSLOADER);
+            if (library != null) return library;
+        }
 
         // search the $LOAD_PATH
         try {
             for (IRubyObject loadPathEntry : loadService.loadPath.toJavaArray()) {
-                library = findFileResourceWithLoadPath(baseName, suffix, getPath(loadPathEntry));
+                FoundLibrary library = findFileResourceWithLoadPath(baseName, suffix, getPath(loadPathEntry));
                 if (library != null) return library;
             }
         } catch (Throwable t) {
